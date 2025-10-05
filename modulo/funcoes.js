@@ -168,10 +168,12 @@ const filterByKeyWord = (numero, numeroContato, keyword) => {
     let contato = usuario.contacts.find(contato => contato.number === numeroContato)
     if (!contato) return MESSAGE_ERROR
 
+
     let mensagemFiltrada = contato.messages.filter(mensagem =>
-        mensagem.text.toLowerCase().includes(keyword.toLowerCase()))
-            
-     return  {
+    mensagem.content && mensagem.content.toLowerCase().includes(keyword.toLowerCase()))
+
+
+    return {
         status: true,
         statuscode: 200,
         development: 'Geovanna Silva de Sousa',
@@ -182,14 +184,14 @@ const filterByKeyWord = (numero, numeroContato, keyword) => {
                 name: contato.name,
                 image: contato.image,
                 number: contato.number,
-                messages: contato.messages
+                messages: mensagemFiltrada
             }]
-        
-     } 
+
+    }
 }
 
 console.log(
-    JSON.stringify(getContactChat("11987876567", "26999999964", 'YES'), null, 2))
+    JSON.stringify(filterByKeyWord("11987876567", "26999999964", 'FINE'), null, 2))
 
 module.exports = {
     getAllUsersDados,

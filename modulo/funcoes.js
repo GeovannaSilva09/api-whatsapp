@@ -49,34 +49,38 @@ const getAllUsersDados = function () {
 
 // Lista todos os dados do perfil do usuário
 const getProfileDados = function (numero) {
-    let message = { status: true, statuscode: 200, development: 'Geovanna Silva de Sousa', dados_do_perfil: [] }
 
-    dados['whats-users'].forEach(function (perfil) {
-        message.dados_do_perfil.push({
-            account: perfil.account,
-            nickname: perfil.nickname,
-            created_since: perfil['created-since'],
-            profileImage: perfil['profile-image'],
-            number: perfil.number,
-            background: perfil.background,
-        })
-    })
-    if (message.dados_do_perfil.length > 0)
-        return message
-    else
-        return MESSAGE_ERROR
-}
-//console.log(getProfileDados())
+    const perfilEncontrado = dados['whats-users'].find(function (perfil) {
+        return perfil.number === numero;
+    });
 
+    let message = {
+        status: true,
+        statuscode: 200,
+        development: 'Geovanna Silva de Sousa',
+
+        dados_do_perfil: [{
+            account: perfilEncontrado.account,
+            nickname: perfilEncontrado.nickname,
+            created_since: perfilEncontrado['created-since'],
+            profileImage: perfilEncontrado['profile-image'],
+            number: perfilEncontrado.number,
+            background: perfilEncontrado.background
+        }]
+    };
+
+    if (perfilEncontrado) {
+        return message;
+    } else {
+        return MESSAGE_ERROR;
+    }
+};
+//console.log(getProfileDados("11987876567"))
 
 
 //Lista dados de contato para cada usuário
 const getContatosByUser = (numero) => {
     let usuario = dados["whats-users"].find(usuario => usuario.number === numero)
-
-    if (!usuario) {
-        return MESSAGE_ERROR
-    }
 
     let info = [{ Perfil: usuario.account }]
 
@@ -89,6 +93,10 @@ const getContatosByUser = (numero) => {
         })
     })
 
+
+    if (!usuario) {
+        return MESSAGE_ERROR
+    }
     return {
         status: true,
         statuscode: 200,
@@ -104,11 +112,6 @@ const getContatosByUser = (numero) => {
 const getAllMessagesByUser = (numero) => {
     let usuario = dados["whats-users"].find(usuario => usuario.number === numero)
 
-    if (!usuario) {
-        return MESSAGE_ERROR
-
-    }
-
     let info = [{ perfil: usuario.account }]
     usuario.contacts.forEach(contatos => {
         info.push({
@@ -119,6 +122,10 @@ const getAllMessagesByUser = (numero) => {
         })
     })
 
+
+    if (!usuario) {
+        return MESSAGE_ERROR
+    }
     return {
         status: true,
         statuscode: 200,
@@ -170,7 +177,7 @@ const filterByKeyWord = (numero, numeroContato, keyword) => {
 
 
     let mensagemFiltrada = contato.messages.filter(mensagem =>
-    mensagem.content && mensagem.content.toLowerCase().includes(keyword.toLowerCase()))
+        mensagem.content && mensagem.content.toLowerCase().includes(keyword.toLowerCase()))
 
 
     return {
@@ -189,15 +196,16 @@ const filterByKeyWord = (numero, numeroContato, keyword) => {
 
     }
 }
-
-console.log(
-    JSON.stringify(filterByKeyWord("11987876567", "26999999964", 'FINE'), null, 2))
+/*console.log(
+   JSON.stringify(filterByKeyWord("11987876567", "26999999964", 'FINE'), null, 2)
+)*/
 
 module.exports = {
     getAllUsersDados,
     getContatosByUser,
     getProfileDados,
     getAllMessagesByUser,
-    getContactChat
+    getContactChat,
+    filterByKeyWord
 }
 

@@ -1,0 +1,5 @@
+Link do PostMan
+https://documenter.getpostman.com/view/48086519/2sB3QJNAMs
+
+Link do Render
+https://api-whatsapp-3dav.onrender.com

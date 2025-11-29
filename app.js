@@ -45,7 +45,7 @@ app.get('/v1/whatsapp/users', function (request, response) {
 
 //EndPoint para listar os dados do perfil do usuário
 app.get('/v1/whatsapp/profile/:numero', function (request, response) {
-    let numero = request.query.numero              
+    let numero = request.params.numero              
     let dadosPerfil = dados.getProfileDados(numero)
     response.status(dadosPerfil.statuscode)
     response.json(dadosPerfil)
@@ -54,7 +54,7 @@ app.get('/v1/whatsapp/profile/:numero', function (request, response) {
 
 //EndPoint para listar os contatos do usuário
 app.get('/v1/whatsapp/contacts/:numero', function (request, response) {
-    let numero = request.query.numero              
+    let numero = request.params.numero              
     let dadosContatos =  dados.getContatosByUser(numero)
     response.status(dadosContatos.statuscode)
     response.json(dadosContatos)
@@ -63,8 +63,8 @@ app.get('/v1/whatsapp/contacts/:numero', function (request, response) {
 
 //EndPoint para listar o chat de um contato do usuário      
 app.get('/v1/whatsapp/chat/:numero/:contato', function (request, response) {
-    let numero = request.query.numero              
-    let contato = request.query.contato        
+    let numero = request.params.numero              
+    let contato = request.params.contato        
     let dadosChat = dados.getContactChat(numero, contato)     
     response.status(dadosChat.statuscode)       
     response.json(dadosChat)
@@ -73,7 +73,7 @@ app.get('/v1/whatsapp/chat/:numero/:contato', function (request, response) {
 
 //EndPoint para listar todas as conversas de um usuário      
 app.get('/v1/whatsapp/chat/:numero', function (request, response) {
-    let numero = request.query.numero                 
+    let numero = request.params.numero                 
     let dadosConversas = dados.getAllMessagesByUser(numero)     
     response.status(dadosConversas.statuscode)       
     response.json(dadosConversas)

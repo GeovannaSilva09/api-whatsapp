@@ -19,15 +19,15 @@ const dados = require('./modulo/funcoes.js')
 
 //Define a porta padrão da API, se for em um servidor de nuvem não tem acesso a porta
             // em execução podemos definir uma porta livre
-const PORT          = process.PORT || 8080
+const PORT = process.env.PORT || 8080
 
 const app = express()
 
-app.use((request, response, next) => {
-    response.header('acess-Control-Allow-Origin', '*')
-    response.header('Acess-Control-Allow-Methods', 'GET')
+app.use(cors())
+app.use((request, response, next)=>{
+    response.header('Access-Control-Allow-Origin', '*') //IP de Origem
+    response.header('Access-Control-Allow-Methods', 'GET') //Métodos (Verbos) do protocólo HTTP
 
-    app.use(cors())
     next()
 })
 

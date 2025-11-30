@@ -81,7 +81,7 @@ app.get('/v1/whatsapp/chat/:numero', function (request, response) {
 })  
 
 //EndPoint para listar o chat de um contato do usuário filtrando por uma palavra chave
-app.get('/v1/whatsapp/chat/:numero/:contato/:keyword', /*cors(), async*/ function (request, response  /*, next*/) {
+app.get('/v1/whatsapp/chat', /*cors(), async*/ function (request, response  /*, next*/) {
     let numero = request.query.numero                  
     let contato = request.query.contato                            
     let keyword = request.query.keyword                    
